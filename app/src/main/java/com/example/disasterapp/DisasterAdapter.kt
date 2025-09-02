@@ -1,38 +1,36 @@
 package com.example.disasterapp
 
-import android.recycleview.widget.RecycleView
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.semantics.text
 import androidx.recyclerview.widget.RecyclerView
 import com.example.disasterapp.databinding.ItemDisasterBinding
 
-class DisasterAdapter(privat val listDisaster: List<Disaster>):
-    RecyclerView.Adapter<DisasterAdapter.ItemDisasterViewHolder>() {
+class DisasterAdapter(
+    private val listDisaster: List<Disaster>,
+    private val onItemClick: (Disaster) -> Unit
+) : RecyclerView.Adapter<DisasterAdapter.DisasterViewHolder>() {
 
-    inner class ItemDisasterViewHolder(private val binding: ItemDisasterBinding):
-        RecycleView.ViewHolder(itemView = binding.root) {
-
-            fun bind(data: Disaster) {
-                with(receiver = binding) {
-                    txtDisasterName.text = data.nameDisaster
-                    txtDisasterType.text = data.typeDisaster
-
-                    itemView.setOn
-                }
+    inner class DisasterViewHolder(private val binding: ItemDisasterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(disaster: Disaster) {
+            binding.rvDisasterName.text = disaster.nameDisaster
+            binding.rvDisasterType.text = disaster.typeDisaster
+            itemView.setOnClickListener {
+                onItemClick(disaster)
             }
         }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemDisasterViewHolder {
-
-
-        val binding = ItemDisasterBinding.inflate(LayoutInflater.from(context = parent.context), parent, false)
-        returm ItemDisasterViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ItemDisasterViewHolder, position: Int) {
-        TODO("Not yet implemented")
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DisasterViewHolder {
+        val binding = ItemDisasterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return DisasterViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return 5
+    override fun onBindViewHolder(holder: DisasterViewHolder, position: Int) {
+        holder.bind(listDisaster[position])
     }
+
+    override fun getItemCount(): Int = listDisaster.size
 }
+    
