@@ -7,6 +7,10 @@ android {
     namespace = "com.example.disasterapp"
     compileSdk = 36
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.example.disasterapp"
         minSdk = 24
@@ -32,10 +36,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 }
 

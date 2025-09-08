@@ -2,7 +2,6 @@ package com.example.disasterapp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.semantics.text
 import androidx.recyclerview.widget.RecyclerView
 import com.example.disasterapp.databinding.ItemDisasterBinding
 
@@ -13,12 +12,15 @@ class DisasterAdapter(
 
     inner class DisasterViewHolder(private val binding: ItemDisasterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(disaster: Disaster) {
-            binding.rvDisasterName.text = disaster.nameDisaster
-            binding.rvDisasterType.text = disaster.typeDisaster
-            itemView.setOnClickListener {
-                onItemClick(disaster)
+        fun bind(data: Disaster) {
+            with(binding) {
+                txtDisasterName.text = data.nameDisaster
+                txtDisasterType.text = data.disasterType
+                itemView.setOnClickListener {
+                    onItemClick(data)
+                }
             }
+
         }
     }
 
